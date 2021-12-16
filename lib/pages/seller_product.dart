@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tour_app/pages/check_order_resteraunt.dart';
 import 'package:tour_app/pages/order_resort.dart';
 import 'package:tour_app/pages/order_resteraunt.dart';
@@ -22,9 +23,6 @@ class _ProductSellerState extends State<ProductSeller> {
       'typeProduct': 'resteraunt',
       'productOwnerName': 'best@gmail.com',
       'tel': '081-822-5233',
-      'restaurant': 2,
-      'otop': 0,
-      'homestay': 0,
       'productId': '123456'
     },
     {
@@ -32,9 +30,6 @@ class _ProductSellerState extends State<ProductSeller> {
       'typeProduct': 'resort',
       'productOwnerName': 'narubest@gmail.com',
       'tel': '082-832-5234',
-      'restaurant': 0,
-      'otop': 1,
-      'homestay': 0,
       'productId': '123456'
     }
   ];
@@ -82,104 +77,13 @@ class _ProductSellerState extends State<ProductSeller> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25)),
               child: Container(
-                height: 150,
+                height: sizeHeight * .3,
                 child: InkWell(
-                  child: Row(
+                  child: Column(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        width: size * 0.2,
-                        height: 60,
-                        child: const Icon(
-                          Icons.person_pin,
-                          size: 60,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.library_books,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  products[index]["productName"],
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.phone,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(products[index]["tel"],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.category,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(products[index]["typeProduct"],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                buildButtonOrder(index, context),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => ProductsList()));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons
-                                          .production_quantity_limits_sharp),
-                                      Text('สินค้าของฉัน'),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60)),
-                      )
+                      buildEdit(context),
+                      buildDetail(size, index, context),
+                      buildToggle(),
                     ],
                   ),
                 ),
@@ -197,12 +101,158 @@ class _ProductSellerState extends State<ProductSeller> {
     );
   }
 
+  Row buildEdit(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BuyerCreateBrand()));
+          },
+          icon: Icon(Icons.edit),
+          color: Colors.red,
+        )
+      ],
+    );
+  }
+
+  Row buildDetail(double size, int index, BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(10),
+          width: size * 0.2,
+          height: 60,
+          child: const Icon(
+            Icons.person_pin,
+            size: 60,
+            color: Colors.white,
+          ),
+        ),
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.library_books,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    products[index]["productName"],
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.phone,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(products[index]["tel"],
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500)),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.category,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(products[index]["typeProduct"],
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500)),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: buildButtonOrder(index, context),
+                  ),
+                  buildButtonProducts(context)
+                ],
+              )
+            ],
+          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(60)),
+        )
+      ],
+    );
+  }
+
+  Row buildToggle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ToggleSwitch(
+          totalSwitches: 2,
+          minWidth: 80.0,
+          cornerRadius: 20.0,
+          activeBgColors: [
+            [Colors.green[800]!],
+            [Colors.red[800]!]
+          ],
+          activeFgColor: Colors.white,
+          inactiveBgColor: Colors.grey,
+          inactiveFgColor: Colors.white,
+          initialLabelIndex: 1,
+          labels: ['เปิดร้าน', 'ปิดร้าน'],
+          radiusStyle: true,
+          onToggle: (index) {
+            print('switched to: $index');
+          },
+        )
+      ],
+    );
+  }
+
+  ElevatedButton buildButtonProducts(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => ProductsList()));
+      },
+      child: Row(
+        children: [
+          Icon(Icons.production_quantity_limits_sharp),
+          Text('รายการสินค้า'),
+        ],
+      ),
+    );
+  }
+
   ElevatedButton buildButtonOrder(int index, BuildContext context) {
     return ElevatedButton(
       child: Row(
         children: [
           const Icon(Icons.delivery_dining_rounded),
-          const Text('เช็คออร์เดอร์')
+          const Text('ออร์เดอร์')
         ],
       ),
       onPressed: () {
