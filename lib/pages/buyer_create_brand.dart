@@ -484,32 +484,33 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
           width: 10,
         ),
         Container(
-            width: width * .35,
-            child: DateTimePicker(
-                initialTime: TimeOfDay.now(),
-                type: DateTimePickerType.time,
-                timeLabelText: 'เวลาที่ปิดร้าน',
-                onChanged: (val) {
-                  endTime = val;
-                  setState(() {
-                    if (val.isEmpty) {
-                      focusEndTime = false;
-                    } else {
-                      focusEndTime = true;
-                    }
-                  });
-                },
-                validator: (date) {
-                  if (date!.isEmpty) {
-                    return 'กรุณาเลือกวันที่เปิดร้าน';
-                  }
-                  return null;
-                },
-                // onSaved: (value) => startDate = value,
-                style: TextStyle(
-                    color: Colors.tealAccent[700],
-                    fontWeight:
-                        focusEndTime ? FontWeight.w700 : FontWeight.normal))),
+          width: width * .35,
+          child: DateTimePicker(
+            initialTime: TimeOfDay.now(),
+            type: DateTimePickerType.time,
+            timeLabelText: 'เวลาที่ปิดร้าน',
+            onChanged: (val) {
+              endTime = val;
+              setState(() {
+                if (val.isEmpty) {
+                  focusEndTime = false;
+                } else {
+                  focusEndTime = true;
+                }
+              });
+            },
+            validator: (date) {
+              if (date!.isEmpty) {
+                return 'กรุณาเลือกวันที่เปิดร้าน';
+              }
+              return null;
+            },
+            // onSaved: (value) => startDate = value,
+            style: TextStyle(
+                color: Colors.tealAccent[700],
+                fontWeight: focusEndTime ? FontWeight.w700 : FontWeight.normal),
+          ),
+        ),
       ],
     );
   }

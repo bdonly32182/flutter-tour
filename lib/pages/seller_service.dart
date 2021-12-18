@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tour_app/pages/dashboard_restaurant.dart';
 import 'package:tour_app/pages/notification.dart';
 import 'package:tour_app/pages/profile.dart';
 import 'package:tour_app/pages/seller_product.dart';
@@ -14,6 +15,7 @@ class _SellerServiceState extends State<SellerService> {
   int _selected = 0;
   List<Widget> _widget_bottom_list = [
     ProductSeller(),
+    DashboardRestaurant(),
     Notifications(),
     Profile(),
   ];
@@ -32,13 +34,13 @@ class _SellerServiceState extends State<SellerService> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.home),
-            //   label: 'Home',
-            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.list_alt),
               label: 'MyStore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.auto_graph),
+              label: 'Dashboard',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
