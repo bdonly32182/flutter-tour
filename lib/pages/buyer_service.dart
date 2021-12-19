@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tour_app/pages/home_buyer.dart';
 import 'package:tour_app/pages/notification.dart';
 import 'package:tour_app/pages/profile.dart';
 
@@ -12,8 +13,9 @@ class BuyerService extends StatefulWidget {
 class _BuyerServiceState extends State<BuyerService> {
   int _selected = 0;
   List<Widget> _widget_bottom_list = [
-    // Notifications(),
-    // Profile(),
+    HomeBuyer(),
+    Notifications(),
+    Profile(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -29,10 +31,10 @@ class _BuyerServiceState extends State<BuyerService> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.home),
-          //   label: 'Home',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: 'Notification',

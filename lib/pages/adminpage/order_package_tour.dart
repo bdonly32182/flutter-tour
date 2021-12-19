@@ -53,7 +53,7 @@ class _OrderPackageTourState extends State<OrderPackageTour> {
     return Scaffold(
       appBar: AppBar(
         title: Text('รายการสั่งซื้อแพ็คเกจทัวร์'),
-        backgroundColor: Colors.tealAccent[700],
+        backgroundColor: MyConstant.themeApp,
       ),
       body: ListView.builder(
         itemCount: orders.length,
@@ -197,7 +197,7 @@ class _OrderPackageTourState extends State<OrderPackageTour> {
     return Container(
       width: width * .26,
       height: 160,
-      child: ShowImage(pathImage: MyConstant.tripPicture),
+      child: ShowImage(pathImage: MyConstant.locationImage),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)
           // shape: BoxShape.circle,
           // color: Colors.yellow[700],

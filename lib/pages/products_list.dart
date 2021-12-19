@@ -45,7 +45,7 @@ class _ProductsListState extends State<ProductsList> {
             icon: Icon(Icons.add),
           )
         ],
-        backgroundColor: Colors.tealAccent[700],
+        backgroundColor: MyConstant.themeApp,
         title: Text('รายการสินค้า'),
       ),
       body: SafeArea(

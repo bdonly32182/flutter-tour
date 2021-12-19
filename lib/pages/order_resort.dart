@@ -57,6 +57,9 @@ class _OrderResortState extends State<OrderResort> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: MyConstant.themeApp,
+      ),
       body: ListView.builder(
         itemCount: orders.length,
         itemBuilder: (BuildContext context, int index) {

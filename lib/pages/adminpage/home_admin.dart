@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/adminpage/guide_list.dart';
 import 'package:tour_app/pages/adminpage/member.dart';
+import 'package:tour_app/pages/adminpage/member_list.dart';
 import 'package:tour_app/pages/adminpage/partner_list.dart';
 import 'package:tour_app/pages/package_tour.dart';
 import 'package:tour_app/pages/tourism_location.dart';
@@ -16,286 +17,96 @@ class HomeAdmin extends StatefulWidget {
 class _HomeAdminState extends State<HomeAdmin> {
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        backgroundColor: MyConstant.backgroudApp,
         body: SafeArea(
-      child: ListView(
-        children: [
-          buildPartner(size),
-          buildPackageTour(size),
-          buildMeber(size),
-          buildTourismLocation(size),
-          buildGuide(size)
-        ],
+          child: ListView(
+            children: [
+              menuCard(
+                context,
+                width,
+                MemberList(),
+                MyConstant.memberPicture,
+                'สมาชิกในระบบ',
+                Colors.green.shade300,
+              ),
+              menuCard(
+                context,
+                width,
+                PartnerList(),
+                MyConstant.partnerImage,
+                'พาร์ทเนอร์',
+                Colors.orange,
+              ),
+              menuCard(
+                context,
+                width,
+                PackageTour(isAdmin: true),
+                MyConstant.packageTourImage,
+                'แพ็คเกจทัวร์',
+                Colors.blue.shade300,
+              ),
+              menuCard(
+                context,
+                width,
+                TourismLocation(isAdmin: true),
+                MyConstant.locationImage,
+                'แหล่งท่องเที่ยว',
+                Colors.purple.shade200,
+              ),
+              menuCard(
+                context,
+                width,
+                GuideList(),
+                MyConstant.guideImage,
+                'ไกด์นำเที่ยว',
+                Colors.pink.shade200,
+              ),
+            ],
+          ),
+        ));
+  }
+
+  Card menuCard(BuildContext context, double width, Widget gotoWidget,
+      String imageUrl, String? title, Color titleColor) {
+    return Card(
+      margin: const EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-    ));
-  }
-
-  Container buildGuide(double size) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Ink.image(
-                image: AssetImage(MyConstant.packageTourImage),
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-                fit: BoxFit.cover,
-                height: 230,
-                width: size * 1,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => GuideList()));
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ไกด์นำเที่ยว',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        'จัดการไกด์นำเที่ยวได้ที่นี่',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => gotoWidget)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              width: width * 0.4,
+              child: Image.asset(imageUrl),
+            ),
+            SizedBox(
+              width: width * .5,
+              child: Center(
+                child: Text(
+                  title!,
+                  style: TextStyle(
+                      color: titleColor,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      shadows: const [
+                        Shadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 2.2),
+                          blurRadius: 6,
+                        )
+                      ]),
                 ),
-              )
-            ],
-          )),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black38, blurRadius: 20, offset: const Offset(0, 8))
-      ]),
-    );
-  }
-
-  Container buildMeber(double size) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Ink.image(
-                image: AssetImage(MyConstant.memberPicture),
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-                fit: BoxFit.cover,
-                height: 230,
-                width: size * 1.0,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, MyConstant.routeMemberList);
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'สมาชิกในระบบ',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        'ลิสต์รายชื่อสมาชิกทั้งหมด และ',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        ' อนุมัติพาร์ทเนอร์ได้ที่นี่',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black38, blurRadius: 20, offset: const Offset(0, 8))
-      ]),
-    );
-  }
-
-  Container buildTourismLocation(double size) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Ink.image(
-                image: AssetImage(MyConstant.tripPicture),
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-                fit: BoxFit.cover,
-                height: 230,
-                width: size * 1,
-                child: InkWell(
-                  onTap: () {
-                    print('click card');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => TourismLocation(isAdmin: true)));
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'แหล่งท่องเที่ยว',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        'จัดการแหล่งท่องเที่ยวได้ที่นี่',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black38, blurRadius: 20, offset: const Offset(0, 8))
-      ]),
-    );
-  }
-
-  Container buildPartner(double size) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Ink.image(
-                image: AssetImage(MyConstant.shopImage),
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-                fit: BoxFit.cover,
-                height: 230,
-                width: size * 1,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => PartnerList()));
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'พาร์ทเนอร์',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        'จัดการข้อมูล ร้านอาหาร บ้านพัก',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        ' ผลิตภัณฑ์ชุมชน ได้ที่นี่',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black38, blurRadius: 20, offset: const Offset(0, 8))
-      ]),
-    );
-  }
-
-  Container buildPackageTour(double size) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Card(
-          clipBehavior: Clip.antiAlias,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Stack(
-            children: [
-              Ink.image(
-                image: AssetImage(MyConstant.packageTourImage),
-                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.multiply),
-                fit: BoxFit.cover,
-                height: 230,
-                width: size * 1,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => PackageTour(isAdmin: true)));
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'แพ็คเกจทัวร์',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        'จัดการแพ็คเกจทัวร์ได้ที่นี่',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.black38, blurRadius: 20, offset: const Offset(0, 8))
-      ]),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

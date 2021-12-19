@@ -22,12 +22,16 @@ class _CreateTourismLocationState extends State<CreateTourismLocation> {
   List<File> image_selected = [];
 
   void getImage() async {
-    final XFile? image =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        image_selected.add(File(image.path));
-      });
+    try {
+      final XFile? image =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() {
+          image_selected.add(File(image.path));
+        });
+      }
+    } catch (e) {
+      print('selected image failed');
     }
   }
 
