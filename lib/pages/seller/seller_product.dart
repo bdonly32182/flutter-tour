@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:tour_app/pages/check_order_resteraunt.dart';
-import 'package:tour_app/pages/order_resort.dart';
-import 'package:tour_app/pages/order_resteraunt.dart';
-import 'package:tour_app/pages/products_list.dart';
+import 'package:tour_app/pages/seller/check_order_resteraunt.dart';
+import 'package:tour_app/pages/seller/order_resort.dart';
+import 'package:tour_app/pages/seller/order_resteraunt.dart';
+import 'package:tour_app/pages/seller/products_list.dart';
 
-import 'buyer_create_brand.dart';
+import 'seller_create_brand.dart';
 import 'create_product_items.dart';
 
 class ProductSeller extends StatefulWidget {

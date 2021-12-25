@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/create_product_items.dart';
+import 'package:tour_app/pages/seller/create_product_items.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 

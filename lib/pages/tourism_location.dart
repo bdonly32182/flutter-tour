@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/create_tourism_location.dart';
+import 'package:tour_app/pages/adminpage/create_tourism_location.dart';
 import 'package:tour_app/widgets/card_location.dart';
 
 class TourismLocation extends StatefulWidget {

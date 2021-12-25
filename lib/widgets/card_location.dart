@@ -26,7 +26,7 @@ class CardLocation extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               offset: Offset(0, 17),
               blurRadius: 17,
@@ -62,7 +62,7 @@ class CardLocation extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 5, left: 10),
                               child: Text(
                                 name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800),
@@ -75,32 +75,34 @@ class CardLocation extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
                                 location,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                                 maxLines: 1,
                                 softWrap: false,
                                 overflow: TextOverflow.fade,
                               ),
                             ),
                             Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: RatingBar.builder(
-                                    itemSize: 20.0,
-                                    initialRating: rating,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 1.0),
-                                    itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                    onRatingUpdate: (ratingUpdate) {
-                                      print(ratingUpdate);
-                                    })),
+                              padding: const EdgeInsets.only(left: 10),
+                              child: RatingBar.builder(
+                                itemSize: 20.0,
+                                initialRating: rating,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 1.0),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (ratingUpdate) {
+                                  print(ratingUpdate);
+                                },
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
+                              children: const [
                                 Text(
                                   'รายละเอียดเพิ่มเติม >>',
                                   style: TextStyle(color: Colors.white),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/create_package_tour.dart';
+import 'package:tour_app/pages/adminpage/create_package_tour.dart';
 import 'package:tour_app/widgets/card_package_tour.dart';
 
 class PackageTour extends StatefulWidget {
@@ -90,7 +90,7 @@ class _PackageTourState extends State<PackageTour> {
           children: [
             buildSearch(size, sizeHeight),
             Container(
-              margin: EdgeInsets.all(15),
+              margin:const EdgeInsets.all(15),
               width: size * 1,
               height: sizeHeight * .74,
               child: ListView.builder(

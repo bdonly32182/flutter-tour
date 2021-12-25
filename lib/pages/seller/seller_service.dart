@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/dashboard_restaurant.dart';
+import 'package:tour_app/pages/seller/dashboard_restaurant.dart';
 import 'package:tour_app/pages/notification.dart';
 import 'package:tour_app/pages/profile.dart';
-import 'package:tour_app/pages/seller_product.dart';
+import 'package:tour_app/pages/seller/seller_product.dart';
 
 class SellerService extends StatefulWidget {
   SellerService({Key? key}) : super(key: key);

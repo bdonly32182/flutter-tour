@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/buyer_create_brand.dart';
-import 'package:tour_app/pages/create_product_items.dart';
+import 'package:tour_app/pages/seller/seller_create_brand.dart';
+import 'package:tour_app/pages/seller/create_product_items.dart';
 
 class PartnerList extends StatefulWidget {
   PartnerList({Key? key}) : super(key: key);

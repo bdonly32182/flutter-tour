@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/seller_product.dart';
-import 'package:tour_app/pages/shopping_restaurant.dart';
+import 'package:tour_app/pages/buyer/shopping_resort.dart';
+import 'package:tour_app/pages/package_tour.dart';
+import 'package:tour_app/pages/seller/seller_product.dart';
+import 'package:tour_app/pages/buyer/shopping_otop.dart';
+import 'package:tour_app/pages/buyer/shopping_restaurant.dart';
+import 'package:tour_app/pages/tourism_location.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
 class HomeBuyer extends StatefulWidget {
@@ -24,13 +28,21 @@ class _HomeBuyerState extends State<HomeBuyer> {
               width,
               ShoppingRestaurant(),
               MyConstant.shopImage,
-              'ผลิตภัณฑ์ชุมชน และร้านอาหาร',
+              'ร้านอาหาร',
               Colors.orange.shade300,
             ),
             menuCard(
               context,
               width,
-              ProductSeller(),
+              ShoppingOtop(),
+              MyConstant.shopImage,
+              'ผลิตภัณฑ์ชุมชน',
+              Colors.orange.shade300,
+            ),
+            menuCard(
+              context,
+              width,
+              ShoppingResort(),
               MyConstant.homestayImage,
               'บ้านพัก',
               Colors.green.shade300,
@@ -38,7 +50,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              ProductSeller(),
+              TourismLocation(isAdmin: false),
               MyConstant.locationImage,
               'แหล่งท่องเที่ยว',
               Colors.purple.shade200,
@@ -46,7 +58,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              ProductSeller(),
+              PackageTour(isAdmin: false),
               MyConstant.packageTourImage,
               'แพ็คเกจท่องเที่ยว',
               Colors.blue.shade300,

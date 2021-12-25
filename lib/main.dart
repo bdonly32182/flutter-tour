@@ -2,13 +2,13 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tour_app/pages/admin_service.dart';
+import 'package:tour_app/pages/adminpage/admin_service.dart';
 import 'package:tour_app/pages/adminpage/member.dart';
 import 'package:tour_app/pages/authen.dart';
-import 'package:tour_app/pages/buyer_service.dart';
+import 'package:tour_app/pages/buyer/buyer_service.dart';
 import 'package:tour_app/pages/create_account.dart';
-import 'package:tour_app/pages/guide_service.dart';
-import 'package:tour_app/pages/seller_service.dart';
+import 'package:tour_app/pages/guide/guide_service.dart';
+import 'package:tour_app/pages/seller/seller_service.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
 final Map<String, WidgetBuilder> routesMap = {

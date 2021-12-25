@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/widgets/show_image.dart';
 
 class CardPackageTour extends StatelessWidget {
   final String url_image;
@@ -19,7 +18,7 @@ class CardPackageTour extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             offset: Offset(0, 17),
@@ -32,7 +31,7 @@ class CardPackageTour extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () {
             print('click ');
@@ -81,7 +80,7 @@ class CardPackageTour extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       Container(
-                        child: Align(
+                        child: const Align(
                           alignment: Alignment.topRight,
                           child: Icon(
                             Icons.navigate_next_sharp,

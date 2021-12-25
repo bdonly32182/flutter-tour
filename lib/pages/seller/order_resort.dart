@@ -1,45 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/check_order_resteraunt.dart';
+import 'package:tour_app/pages/seller/check_order_resort.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 import 'package:tour_app/widgets/show_text_status.dart';
 
-class OrderResteraunt extends StatefulWidget {
-  OrderResteraunt({Key? key}) : super(key: key);
+import 'check_order_resteraunt.dart';
+
+class OrderResort extends StatefulWidget {
+  OrderResort({Key? key}) : super(key: key);
 
   @override
-  _OrderResterauntState createState() => _OrderResterauntState();
+  _OrderResortState createState() => _OrderResortState();
 }
 
-class _OrderResterauntState extends State<OrderResteraunt> {
+class _OrderResortState extends State<OrderResort> {
   List<Map<String, dynamic>> orders = [
     {
       'orderId': '1',
       'userIdentify': 'jakkaphan piaphengton',
       'price': 1500,
       'statusApprove': 'Pending',
-      'amountMenu': 3
+      'amountRoom': 3,
+      'startDate': '12/12/2021',
+      'endDate': '13/12/2021',
     },
     {
       'orderId': '2',
       'userIdentify': 'narubest piaphengton',
       'price': 2500,
       'statusApprove': 'WaitAccepted',
-      'amountMenu': 2
+      'amountRoom': 2,
+      'startDate': '12/12/2021',
+      'endDate': '13/12/2021',
     },
     {
       'orderId': '3',
       'userIdentify': 'anongnuch piaphengton',
       'price': 1800,
       'statusApprove': 'Rejected',
-      'amountMenu': 1
+      'amountRoom': 1,
+      'startDate': '12/12/2021',
+      'endDate': '13/12/2021',
     },
     {
       'orderId': '4',
       'userIdentify': 'thitirat piaphengton',
       'price': 2000,
       'statusApprove': 'Joined',
-      'amountMenu': 4
+      'amountRoom': 4,
+      'startDate': '12/12/2021',
+      'endDate': '13/12/2021',
     },
   ];
   @override
@@ -61,15 +71,15 @@ class _OrderResterauntState extends State<OrderResteraunt> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CheckOrderResteraunt(
-                          orderId: orders[index]['orderId']),
+                      builder: (context) =>
+                          CheckOrderResort(orderId: orders[index]['orderId']),
                     ),
                   );
                 },
                 child: Container(
                   margin: EdgeInsets.all(10),
                   width: width * .92,
-                  height: height * .2,
+                  height: height * .27,
                   child: Row(
                     children: [
                       buildDetail(width, index),
@@ -120,25 +130,6 @@ class _OrderResterauntState extends State<OrderResteraunt> {
               ),
             ],
           ),
-          // Row(
-          //   children: [
-          //     Container(
-          //       child: const Icon(
-          //         Icons.location_on_sharp,
-          //         color: Colors.black54,
-          //       ),
-          //       margin: const EdgeInsets.all(7),
-          //     ),
-          //     Text(
-          //       orders[index]['packageName'],
-          //       style: const TextStyle(
-          //         color: Color.fromRGBO(41, 187, 137, 1),
-          //         fontSize: 16,
-          //         fontWeight: FontWeight.w600,
-          //       ),
-          //     ),
-          //   ],
-          // ),
           Row(
             children: [
               Container(
@@ -162,13 +153,32 @@ class _OrderResterauntState extends State<OrderResteraunt> {
             children: [
               Container(
                 child: const Icon(
-                  Icons.food_bank_rounded,
+                  Icons.home_filled,
                   color: Colors.black54,
                 ),
                 margin: const EdgeInsets.all(7),
               ),
               Text(
-                orders[index]['amountMenu'].toString(),
+                orders[index]['amountRoom'].toString(),
+                style: const TextStyle(
+                  color: Color.fromRGBO(41, 187, 137, 1),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                child: const Icon(
+                  Icons.timer_sharp,
+                  color: Colors.black54,
+                ),
+                margin: const EdgeInsets.all(7),
+              ),
+              Text(
+                '${orders[index]['startDate']} - ${orders[index]['endDate']}',
                 style: const TextStyle(
                   color: Color.fromRGBO(41, 187, 137, 1),
                   fontSize: 16,
