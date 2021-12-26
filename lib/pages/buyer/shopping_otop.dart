@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tour_app/pages/buyer/menu_item_otop.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -111,71 +112,81 @@ class _ShoppingOtopState extends State<ShoppingOtop> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Container(
-        height: height * .23,
-        width: width * 1,
-        child: Column(
-          children: [
-            SizedBox(
-              width: width * 7,
-              height: height * 0.14,
-              child: ShowImage(pathImage: MyConstant.packageTourImage),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (builder) => MenuItemOtop(),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 20, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'ชื่อร้าน',
-                      maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      RatingBar.builder(
-                        itemSize: 20.0,
-                        initialRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 1,
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 1.0),
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onRatingUpdate: (ratingUpdate) {
-                          print(ratingUpdate);
-                        },
+          );
+        },
+        child: Container(
+          height: height * .23,
+          width: width * 1,
+          child: Column(
+            children: [
+              SizedBox(
+                width: width * 7,
+                height: height * 0.14,
+                child: ShowImage(pathImage: MyConstant.packageTourImage),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 20, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'ชื่อร้าน',
+                        maxLines: 1,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20),
                       ),
-                      const Text('4.4'),
-                      const Text('(100)'),
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      children: [
+                        RatingBar.builder(
+                          itemSize: 20.0,
+                          initialRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 1,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 1.0),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (ratingUpdate) {
+                            print(ratingUpdate);
+                          },
+                        ),
+                        const Text('4.4'),
+                        const Text('(100)'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.delivery_dining_outlined,
-                    color: Colors.grey.shade700,
-                  ),
-                  Text(
-                    '100 ฿',
-                    style: TextStyle(color: Colors.grey.shade700),
-                  ),
-                ],
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.delivery_dining_outlined,
+                      color: Colors.grey.shade700,
+                    ),
+                    Text(
+                      '100 ฿',
+                      style: TextStyle(color: Colors.grey.shade700),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

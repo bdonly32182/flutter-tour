@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/buyer/add_to_cart.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
-class MenuItemRestaurant extends StatefulWidget {
-  MenuItemRestaurant({Key? key}) : super(key: key);
+import 'add_to_cart.dart';
+
+class MenuItemOtop extends StatefulWidget {
+  MenuItemOtop({Key? key}) : super(key: key);
 
   @override
-  _MenuItemRestaurantState createState() => _MenuItemRestaurantState();
+  _MenuItemOtopState createState() => _MenuItemOtopState();
 }
 
-class _MenuItemRestaurantState extends State<MenuItemRestaurant> {
+class _MenuItemOtopState extends State<MenuItemOtop> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -82,14 +83,7 @@ class _MenuItemRestaurantState extends State<MenuItemRestaurant> {
                         MaterialPageRoute(
                           builder: (_) => AddToCart(
                             productImage: MyConstant.delivery,
-                            option: [
-                              {'optionName': 'พิเศษข้าว', 'optionPrice': 10},
-                              {'optionName': 'พิเศษกับข้าว', 'optionPrice': 20},
-                              {'optionName': 'พิเศษ', 'optionPrice': 10},
-                              {'optionName': 'พิเศษ', 'optionPrice': 10},
-                              {'optionName': 'พิเศษ', 'optionPrice': 10},
-                              {'optionName': 'พิเศษ', 'optionPrice': 10},
-                            ],
+                            option: [],
                             productName: 'productName',
                             productPrice: 100,
                           ),

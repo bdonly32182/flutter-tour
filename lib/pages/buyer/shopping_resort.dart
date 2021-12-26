@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tour_app/pages/buyer/rooms_resort.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -84,40 +85,54 @@ class _ShoppingResortState extends State<ShoppingResort> {
         child: ListView(
           children: [
             buildSearch(width, height),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: resorts.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    margin: EdgeInsets.all(10),
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      height: height * 0.26,
-                      child: Column(
-                        children: [
-                          buildImageCard(width, height, index),
-                          buildResortName(index),
-                          buildResortLocation(index),
-                          const SizedBox(
-                            height: 10,
-                            child: Divider(
-                              color: Colors.grey,
-                              thickness: 0.05,
-                            ),
-                          ),
-                          buildFooter(index)
-                        ],
-                      ),
-                    ),
-                  );
-                })
+            buildListView(height, width),
           ],
         ),
       ),
     );
+  }
+
+  ListView buildListView(double height, double width) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: resorts.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            margin: EdgeInsets.all(10),
+            clipBehavior: Clip.antiAlias,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => RoomsResort(),
+                  ),
+                );
+              },
+              child: Container(
+                height: height * 0.26,
+                child: Column(
+                  children: [
+                    buildImageCard(width, height, index),
+                    buildResortName(index),
+                    buildResortLocation(index),
+                    const SizedBox(
+                      height: 10,
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 0.05,
+                      ),
+                    ),
+                    buildFooter(index)
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   Row buildFooter(int index) {
