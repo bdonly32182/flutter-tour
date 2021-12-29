@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:tour_app/pages/buyer/booking_room.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -17,6 +18,17 @@ class _RoomsResortState extends State<RoomsResort> {
       'bedSize': '2 เตียงควีนไซส์',
       'roomSize': 28,
       'amountCustomer': 4,
+      'roomImages': [
+        MyConstant.homestayImage,
+        MyConstant.locationImage,
+        MyConstant.partnerImage
+      ]
+    },
+    {
+      'roomName': 'roomName',
+      'bedSize': '1 เตียงควีนไซส์',
+      'roomSize': 25,
+      'amountCustomer': 2,
       'roomImages': [
         MyConstant.homestayImage,
         MyConstant.locationImage,
@@ -44,29 +56,36 @@ class _RoomsResortState extends State<RoomsResort> {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            ListView.builder(
-                itemCount: rooms.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext buildContext, int index) {
-                  return Card(
-                    child: Column(
-                      children: [
-                        buildSwiperImage(width, height, index),
-                        buildBedSize(index),
-                        buildBedDetail(index),
-                        buildAmoutCustomer(index),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  );
-                })
+            buildListviewRooms(width, height)
           ],
         ),
       ),
     );
+  }
+
+  ListView buildListviewRooms(double width, double height) {
+    return ListView.builder(
+        itemCount: rooms.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext buildContext, int index) {
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                buildSwiperImage(width, height, index),
+                buildBedSize(index),
+                buildBedDetail(index),
+                buildAmoutCustomer(index),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          );
+        });
   }
 
   Row buildBedDetail(int index) {
@@ -95,12 +114,37 @@ class _RoomsResortState extends State<RoomsResort> {
 
   Row buildAmoutCustomer(int index) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10, right: 8),
-          child: Icon(Icons.family_restroom_sharp),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 8),
+              child: Icon(Icons.family_restroom_sharp),
+            ),
+            Text(
+                'เข้าพักได้สูงสุด : ผู้ใหญ่ ${rooms[index]['amountCustomer']} คน'),
+          ],
         ),
-        Text('เข้าพักได้สูงสุด : ผู้ใหญ่ ${rooms[index]['amountCustomer']} คน'),
+        ElevatedButton(
+          child: Text('จอง'),
+          onPressed: () {
+            print('object');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BookingRoom(),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.yellow.shade800,
+            textStyle: TextStyle(color: Colors.white),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
       ],
     );
   }

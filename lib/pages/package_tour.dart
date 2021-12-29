@@ -90,7 +90,7 @@ class _PackageTourState extends State<PackageTour> {
           children: [
             buildSearch(size, sizeHeight),
             Container(
-              margin:const EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               width: size * 1,
               height: sizeHeight * .74,
               child: ListView.builder(

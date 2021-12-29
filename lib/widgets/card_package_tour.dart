@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tour_app/pages/buyer/booking_tour.dart';
 
 class CardPackageTour extends StatelessWidget {
   final String url_image;
@@ -34,7 +35,12 @@ class CardPackageTour extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () {
-            print('click ');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (builder) => BookingTour(),
+              ),
+            );
           },
           child: Container(
             child: Column(

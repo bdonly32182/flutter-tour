@@ -100,7 +100,8 @@ class _MenuItemRestaurantState extends State<MenuItemRestaurant> {
                       primary: Colors.yellow.shade800,
                       textStyle: TextStyle(color: Colors.white),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 )
