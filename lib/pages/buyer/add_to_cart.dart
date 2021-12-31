@@ -57,44 +57,72 @@ class _AddToCartState extends State<AddToCart> {
               ],
             ),
           ),
-          addAmoutProduct(),
-          buildButtonAddtoCart()
+          buildButtonAddtoCart(height)
         ],
       ),
     );
   }
 
-  Padding buildButtonAddtoCart() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 40, top: 15),
-      child: ElevatedButton(
-        child: SizedBox(
-          width: double.maxFinite,
-          height: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Container buildButtonAddtoCart(double height) {
+    return Container(
+      height: height * 0.15,
+      child: Column(
+        children: [
+          addAmoutProduct(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                'ใส่ในตะกร้า',
-                style: TextStyle(fontSize: 20),
+              Column(
+                children: [
+                  Text(
+                    'ราคาทั้งหมด',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: MyConstant.themeApp,
+                    ),
+                  ),
+                  Text(
+                    '${totalPrice} ฿',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: MyConstant.themeApp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                '${totalPrice} ฿',
-                style: TextStyle(fontSize: 20),
-              )
+              ElevatedButton(
+                child: Text(
+                  'ใส่ในตะกร้า',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  print('send to firebase');
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: MyConstant.themeApp,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
             ],
           ),
-        ),
-        onPressed: () {
-          print('send to firebase');
-        },
-        style: ElevatedButton.styleFrom(
-          primary: MyConstant.themeApp,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+        ],
       ),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(50),
+            top: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black54,
+              offset: Offset(0, 6),
+              blurRadius: 10,
+            ),
+          ]),
     );
   }
 

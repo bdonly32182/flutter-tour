@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/booking_tour.dart';
+import 'package:tour_app/pages/buyer/shopping_tour.dart';
 
 class CardPackageTour extends StatelessWidget {
   final String url_image;
@@ -38,7 +39,7 @@ class CardPackageTour extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (builder) => BookingTour(),
+                builder: (builder) => ShoppingTour(),
               ),
             );
           },
