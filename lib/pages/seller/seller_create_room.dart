@@ -1,14 +1,15 @@
 import 'dart:io';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
-class CreateProductItems extends StatefulWidget {
+class SellerCreateRoom extends StatefulWidget {
   final String? productName;
   final String? productId;
   final String? typeProduct;
-  CreateProductItems(
+  SellerCreateRoom(
       {Key? key,
       required this.productId,
       required this.productName,
@@ -16,19 +17,26 @@ class CreateProductItems extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CreateProductItemsState createState() => _CreateProductItemsState();
+  _SellerCreateRoomState createState() => _SellerCreateRoomState();
 }
 
-class _CreateProductItemsState extends State<CreateProductItems> {
+class _SellerCreateRoomState extends State<SellerCreateRoom> {
   final ImagePicker _picker = ImagePicker();
   TextEditingController _itemName = TextEditingController();
   TextEditingController _itemPrice = TextEditingController();
   TextEditingController _itemDiscount = TextEditingController(text: '0');
   TextEditingController _itemDescription = TextEditingController();
+  TextEditingController _itemTotalRoom = TextEditingController();
+  TextEditingController _itemBedSize = TextEditingController();
+  TextEditingController _itemRoomSize = TextEditingController();
   bool focusDescription = false;
   bool focusName = false;
   bool focusPrice = false;
-  File? image_selected;
+  bool focusTotalRoom = false;
+  bool focusBedSize = false;
+  bool focusBedDescription = false;
+  bool focusRoomSize = false;
+  List<File>? image_selected = [];
   String? _selectedValue;
   List<Map<String, dynamic>>? _valueOptionName = [];
   List<Map<String, dynamic>>? _valueOptionPrice = [];
@@ -54,7 +62,7 @@ class _CreateProductItemsState extends State<CreateProductItems> {
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        image_selected = File(image.path);
+        image_selected!.insert(0, File(image.path));
       });
     }
   }
@@ -63,7 +71,7 @@ class _CreateProductItemsState extends State<CreateProductItems> {
     XFile? take_photo = await _picker.pickImage(source: ImageSource.camera);
     if (take_photo != null) {
       setState(() {
-        image_selected = File(take_photo.path);
+        image_selected!.insert(0, File(take_photo.path));
       });
     }
   }
@@ -92,7 +100,6 @@ class _CreateProductItemsState extends State<CreateProductItems> {
   _updateNamePolicy(String index, String value) {
     for (var name in _valueOptionName!) {
       if (name['nameId'] == index) {
-        // name['nameId'] = index;
         name['value'] = value;
       }
     }
@@ -127,21 +134,25 @@ class _CreateProductItemsState extends State<CreateProductItems> {
     return Scaffold(
       backgroundColor: MyConstant.backgroudApp,
       appBar: AppBar(
-        title: const Text('สร้างข้อมูลสินค้า'),
+        title: const Text('สร้างข้อมูลห้องพัก'),
         backgroundColor: MyConstant.themeApp,
       ),
       body: Form(
         child: ListView(
           children: [
             fieldItemName(width),
+            fieldTotalRoom(width),
+            fieldRoomSize(width),
             fieldPrice(width),
+            fieldBedSize(width),
+            fieldBedDescription(width),
             fieldDiscount(width),
             fieldDescription(width),
             dropdownCategory(width),
             SizedBox(height: 35),
             Center(
               child: Text(
-                'เลือกรูปภาพสำหรับสินค้า',
+                'เลือกรูปภาพสำหรับห้องพัก',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -150,12 +161,12 @@ class _CreateProductItemsState extends State<CreateProductItems> {
               ),
             ),
             buildPhoto(width),
-            const SizedBox(height: 10),
-            buildCreateOption(
-              'เพิ่มรายการตัวเลือกเสริม',
-              _addFieldPolicy,
-            ),
-            buildPolicyForm(width, height),
+            // const SizedBox(height: 10),
+            // buildCreateOption(
+            //   'เพิ่มรายการตัวเลือกเสริม',
+            //   _addFieldPolicy,
+            // ),
+            // buildPolicyForm(width, height),
             buildCreateShopButton(width),
           ],
         ),
@@ -163,13 +174,224 @@ class _CreateProductItemsState extends State<CreateProductItems> {
     );
   }
 
+  Row fieldRoomSize(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .7,
+            height: 60,
+            child: TextFormField(
+              controller: _itemBedSize,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusRoomSize = false;
+                }
+                if (text.length >= 1) {
+                  focusRoomSize = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'ขนาดห้อง',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefix: Icon(
+                    Icons.room_preferences_sharp,
+                    color: focusRoomSize
+                        ? Colors.tealAccent[700]
+                        : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                color: Colors.tealAccent[700],
+                fontWeight: focusRoomSize ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusRoomSize ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row fieldTotalRoom(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .7,
+            height: 60,
+            child: TextFormField(
+              controller: _itemTotalRoom,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusTotalRoom = false;
+                }
+                if (text.length >= 1) {
+                  focusTotalRoom = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'จำนวนห้องทั้งหมด(ของประเภทนี้):',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefix: Icon(
+                    Icons.room_preferences_sharp,
+                    color: focusTotalRoom
+                        ? Colors.tealAccent[700]
+                        : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                color: Colors.tealAccent[700],
+                fontWeight:
+                    focusTotalRoom ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusTotalRoom ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row fieldBedSize(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .7,
+            height: 60,
+            child: TextFormField(
+              controller: _itemBedSize,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusBedSize = false;
+                }
+                if (text.length >= 1) {
+                  focusBedSize = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'ขนาดเตียง',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefix: Icon(
+                    Icons.bed,
+                    color: focusBedSize
+                        ? Colors.tealAccent[700]
+                        : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                color: Colors.tealAccent[700],
+                fontWeight: focusBedSize ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusBedSize ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row fieldBedDescription(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .7,
+            height: 60,
+            child: TextFormField(
+              controller: _itemBedSize,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusBedDescription = false;
+                }
+                if (text.length >= 1) {
+                  focusBedDescription = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'รายละเอียดเตียง',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefix: Icon(
+                    Icons.room_preferences_sharp,
+                    color: focusBedDescription
+                        ? Colors.tealAccent[700]
+                        : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                color: Colors.tealAccent[700],
+                fontWeight:
+                    focusBedDescription ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusBedDescription ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
   Container buildCreateShopButton(double width) {
     return Container(
+      margin: EdgeInsets.all(10),
       width: width * 0.4,
       height: 50,
       child: ElevatedButton(
         child: Text(
-          'สร้างร้านค้า',
+          'สร้างห้องพัก',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -374,10 +596,18 @@ class _CreateProductItemsState extends State<CreateProductItems> {
         Container(
             width: width * .6,
             height: 150,
-            child: image_selected != null
-                ? Image.file(
-                    image_selected!,
-                    fit: BoxFit.cover,
+            child: image_selected!.length > 0
+                ? Swiper(
+                    itemCount: image_selected!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Image.file(
+                        image_selected![index],
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    pagination: SwiperPagination(),
+                    control: SwiperControl(color: Colors.tealAccent[700]),
+                    viewportFraction: 1,
                   )
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -543,7 +773,7 @@ class _CreateProductItemsState extends State<CreateProductItems> {
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
-                labelText: 'ชื่อสินค้า :',
+                labelText: 'ชื่อห้องพัก :',
                 labelStyle: TextStyle(color: Colors.grey[600]),
                 prefix: Icon(
                   Icons.card_membership,
@@ -599,7 +829,7 @@ class _CreateProductItemsState extends State<CreateProductItems> {
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
-                labelText: 'รายละเอียดสินค้า',
+                labelText: 'รายละเอียดห้องพัก',
                 labelStyle: TextStyle(color: Colors.grey[600]),
                 prefix: Icon(
                   Icons.description,

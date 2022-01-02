@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/seller/seller_create_brand.dart';
+import 'package:tour_app/pages/seller/seller_create_room.dart';
+import 'package:tour_app/pages/seller/seller_create_shop.dart';
 import 'package:tour_app/pages/seller/create_product_items.dart';
 
 class PartnerList extends StatefulWidget {
@@ -95,7 +96,7 @@ class _PartnerListState extends State<PartnerList> {
             style: ElevatedButton.styleFrom(primary: Colors.tealAccent[700]),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => BuyerCreateBrand()));
+                  MaterialPageRoute(builder: (_) => SellerCreateShop()));
             },
             child: Row(
               children: const [
@@ -144,7 +145,7 @@ class _PartnerListState extends State<PartnerList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => CreateProductItems(
+                        builder: (_) => SellerCreateRoom(
                             productId: partners[index]['productId'],
                             productName: partners[index]['productName'],
                             typeProduct: partners[index]['typeProduct']),

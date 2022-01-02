@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/buyer/shopping_resort.dart';
+import 'package:tour_app/pages/buyer/filter_room.dart';
 import 'package:tour_app/pages/package_tour.dart';
-import 'package:tour_app/pages/seller/seller_product.dart';
 import 'package:tour_app/pages/buyer/shopping_otop.dart';
 import 'package:tour_app/pages/buyer/shopping_restaurant.dart';
 import 'package:tour_app/pages/tourism_location.dart';
@@ -42,7 +41,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              ShoppingResort(),
+              FilterRoom(),
               MyConstant.homestayImage,
               'บ้านพัก',
               Colors.green.shade300,

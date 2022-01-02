@@ -8,17 +8,14 @@ import 'package:tour_app/model/user_model.dart';
 import 'package:tour_app/utils/geolocation.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
-class BuyerCreateBrand extends StatefulWidget {
-  BuyerCreateBrand({Key? key}) : super(key: key);
+class SellerCreateShop extends StatefulWidget {
+  SellerCreateShop({Key? key}) : super(key: key);
 
   @override
-  _BuyerCreateBrandState createState() => _BuyerCreateBrandState();
+  _SellerCreateShopState createState() => _SellerCreateShopState();
 }
 
-enum SingingCharacter { homestay, resteraunt, otop }
-
-class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
-  SingingCharacter? _character = SingingCharacter.resteraunt;
+class _SellerCreateShopState extends State<SellerCreateShop> {
   final ImagePicker _picker = ImagePicker();
   Position? positionBuyer;
   void initState() {
@@ -34,6 +31,8 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
   File? image_selected;
   TextEditingController thaiName = TextEditingController();
   TextEditingController mobileNumber = TextEditingController();
+  TextEditingController shippingPrice = TextEditingController();
+
   TextEditingController address = TextEditingController();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
@@ -55,8 +54,9 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
   String? endDate;
   String? startTime;
   String? endTime;
-  List<Map<String, dynamic>>? _valueOptionName = [];
-  List<Map<String, dynamic>>? _valueOptionPrice = [];
+  List<Map<String, dynamic>>? _valuePolicyName = [];
+  List<Map<String, dynamic>>? _valuePolicyDescription = [];
+  List<Map<String, dynamic>>? _valueCategorys = [];
   getImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
@@ -67,60 +67,84 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
   }
 
   takePhoto() async {
-    final XFile? take_photo = await _picker.pickImage(
+    final XFile? takePhoto = await _picker.pickImage(
         source: ImageSource.camera, maxWidth: 800, maxHeight: 500);
-    if (take_photo != null) {
+    if (takePhoto != null) {
       setState(() {
-        image_selected = File(take_photo.path);
+        image_selected = File(takePhoto.path);
       });
     }
   }
 
-  _addFieldOption(index) {
+  _addFieldPolicy(index) {
     Map<String, dynamic> jsonName = {
       "nameId": index,
       "value": '',
     };
     Map<String, dynamic> jsonPrice = {
-      "priceId": index,
+      "descriptionPolicyId": index,
       "value": '',
     };
     setState(() {
-      _valueOptionPrice!.add(jsonPrice);
-      _valueOptionName!.add(jsonName);
+      _valuePolicyDescription!.add(jsonPrice);
+      _valuePolicyName!.add(jsonName);
     });
   }
 
-  _updateNameOption(String index, String value) {
-    for (var name in _valueOptionName!) {
+  _updateNamePolicy(String index, String value) {
+    for (var name in _valuePolicyName!) {
       if (name['nameId'] == index) {
         // name['nameId'] = index;
         name['value'] = value;
       }
     }
-    print('name = $_valueOptionName');
+    print('name = $_valuePolicyName');
   }
 
-  _updatePriceOption(String index, String value) {
-    for (var price in _valueOptionPrice!) {
-      if (price['priceId'] == index) {
-        // price['priceId'] = index;
+  _updateDescriptionPolicy(String index, String value) {
+    for (var price in _valuePolicyDescription!) {
+      if (price['descriptionPolicyId'] == index) {
         price['value'] = value;
       }
     }
-    print('price = $_valueOptionPrice');
+    print('price = $_valuePolicyDescription');
   }
 
-  _deleteOption(index) {
+  _deletePolicy(index) {
     setState(() {
-      _valueOptionName!.removeAt(index);
-      _valueOptionPrice!.removeAt(index);
+      _valuePolicyName!.removeAt(index);
+      _valuePolicyDescription!.removeAt(index);
+    });
+  }
+
+  _addFieldCategory(index) {
+    Map<String, dynamic> jsonCategory = {
+      "categoryId": index,
+      "value": '',
+    };
+    setState(() {
+      _valueCategorys!.add(jsonCategory);
+    });
+  }
+
+  _updateNameCategory(String index, String value) {
+    for (var name in _valueCategorys!) {
+      if (name['categoryId'] == index) {
+        name['value'] = value;
+      }
+    }
+    print('name = $_valuePolicyName');
+  }
+
+  _deleteCategory(index) {
+    setState(() {
+      _valueCategorys!.removeAt(index);
     });
   }
 
   _onSubmit() {
-    print('_valueOptionPrice = $_valueOptionPrice');
-    print('_valueOptionName = $_valueOptionName');
+    print('_valueOptionPrice = $_valuePolicyDescription');
+    print('_valueOptionName = $_valuePolicyName');
   }
 
   @override
@@ -129,9 +153,10 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: MyConstant.backgroudApp,
       appBar: AppBar(
         title: Text('สร้างร้านให้ผู้ประกอบการ'),
-        backgroundColor: Colors.tealAccent[700],
+        backgroundColor: MyConstant.themeApp,
       ),
       body: SafeArea(
         child: Form(
@@ -141,20 +166,26 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
               inputName(width),
               buildIdentifier(width),
               inputPhone(width),
+              inputShippingPrice(width),
               inputAddress(width),
               dropdownDate(width),
               buildTimepicker(width),
               const SizedBox(height: 25),
+              buildTextSelectImage(),
               buildPhoto(width),
-              const SizedBox(height: 10),
-              buildRadioType(),
               const SizedBox(height: 20),
-              buildCreateOption(),
-              buildOptionForm(width, height),
-              ElevatedButton(
-                child: Text('create'),
-                onPressed: _onSubmit,
-              )
+              buildCreateOption(
+                'เพิ่มประเภทสินค้า / บ้านพัก',
+                _addFieldCategory,
+              ),
+              buildCategoryForm(width, height),
+              const SizedBox(height: 10),
+              buildCreateOption(
+                'เพิ่มนโยบายของร้าน / บ้านพัก',
+                _addFieldPolicy,
+              ),
+              buildPolicyForm(width, height),
+              buildCreateShopButton(width),
             ],
           ),
         ),
@@ -162,72 +193,27 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
     );
   }
 
-  Column buildRadioType() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ListTile(
-          title: const Text('บ้านพัก'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.homestay,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('ร้านอาหาร'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.resteraunt,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('ผลิตภัณฑ์ชุมชน'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.otop,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Container buildOptionForm(double width, double height) {
+  Container buildCategoryForm(double width, double height) {
     return Container(
       margin: const EdgeInsets.only(top: 20),
       width: width * .8,
-      height: height * .45,
-      child: _valueOptionPrice!.length > 0 ? ListViewOption(width) : null,
+      height: height * .3,
+      child: _valueCategorys!.length > 0 ? ListViewCategory(width) : null,
     );
   }
 
-  ListView ListViewOption(double width) {
+  ListView ListViewCategory(double width) {
     return ListView.builder(
-      itemCount: _valueOptionPrice!.length,
+      itemCount: _valueCategorys!.length,
       itemBuilder: (BuildContext context, int index) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildDismissible(
+            buildDismissCategory(
               index,
               width,
-              _valueOptionPrice![index]['priceId'].toString(),
-              _valueOptionName![index]['value'],
-              _valueOptionPrice![index]['value'],
+              _valueCategorys![index]['categoryId'].toString(),
+              _valueCategorys![index]['value'],
             ),
           ],
         );
@@ -235,64 +221,47 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
     );
   }
 
-  Dismissible buildDismissible(int index, double width, String idField,
-          String valueName, String valuePrice) =>
-      Dismissible(
-        key: Key(idField),
-        direction: DismissDirection.endToStart,
-        child: fieldOption(width, idField, valueName, valuePrice),
-        onDismissed: (_) {
-          _deleteOption(index);
-        },
-        background: Container(
-          color: Colors.red,
-          margin: EdgeInsets.symmetric(horizontal: 15),
-          alignment: Alignment.centerRight,
-          child: Icon(
-            Icons.delete,
-            color: Colors.white,
-          ),
+  Dismissible buildDismissCategory(
+      int index, double width, String idField, String valueCategoryName) {
+    return Dismissible(
+      key: Key(idField),
+      direction: DismissDirection.endToStart,
+      child: fieldFormCategory(width, idField, valueCategoryName),
+      onDismissed: (_) {
+        _deleteCategory(index);
+      },
+      background: Container(
+        color: Colors.red,
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        alignment: Alignment.centerRight,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
         ),
-      );
+      ),
+    );
+  }
 
-  Container fieldOption(
-      double width, String keyField, String valueName, String valuePrice) {
-    return Container(
-      width: width * .6,
+  SizedBox fieldFormCategory(
+    double width,
+    String keyField,
+    String valueCategoryName,
+  ) {
+    return SizedBox(
+      width: width * 0.8,
       child: Column(
         children: [
           TextFormField(
-            initialValue: valueName,
+            initialValue: valueCategoryName,
             onChanged: (value) {
-              _updateNameOption(keyField, value);
+              _updateNameCategory(keyField, value);
             },
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
-              labelText: 'ชื่อตัวเลือกเสริม :',
+              labelText: 'ชื่อประเภทสินค้า :',
               labelStyle: TextStyle(color: Colors.grey[600]),
-              prefix: Icon(Icons.location_on, color: Colors.tealAccent[700]),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade200),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
-          TextFormField(
-            initialValue: valuePrice,
-            onChanged: (value) {
-              _updatePriceOption(keyField, value);
-            },
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              labelText: 'ราคาตัวเลือกเสริม :',
-              labelStyle: TextStyle(color: Colors.grey[600]),
-              prefix: Icon(Icons.location_on, color: Colors.tealAccent[700]),
+              prefix: Icon(Icons.book, color: MyConstant.themeApp),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade200),
                 borderRadius: BorderRadius.circular(10),
@@ -304,7 +273,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
             ),
           ),
           Divider(
-            color: Colors.tealAccent[700],
+            color: MyConstant.themeApp,
             height: 20,
             thickness: 3.0,
           )
@@ -313,25 +282,183 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
     );
   }
 
-  Container buildCreateOption() {
+  Row buildTextSelectImage() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'เลือกรูปภาพสำหรับบ้านพัก',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: MyConstant.themeApp,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Container buildCreateShopButton(double width) {
+    return Container(
+      width: width * 0.4,
+      height: 50,
+      child: ElevatedButton(
+        child: Text(
+          'สร้างร้านค้า',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onPressed: _onSubmit,
+        style: ElevatedButton.styleFrom(
+          primary: MyConstant.themeApp,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildPolicyForm(double width, double height) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      width: width * .8,
+      height: height * .45,
+      child: _valuePolicyDescription!.length > 0 ? ListViewPolicy(width) : null,
+    );
+  }
+
+  ListView ListViewPolicy(double width) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: _valuePolicyDescription!.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildDismissible(
+              index,
+              width,
+              _valuePolicyDescription![index]['descriptionPolicyId'].toString(),
+              _valuePolicyName![index]['value'],
+              _valuePolicyDescription![index]['value'],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Dismissible buildDismissible(int index, double width, String idField,
+      String valueNamePolicy, String descriptionPolicy) {
+    return Dismissible(
+      key: Key(idField),
+      direction: DismissDirection.endToStart,
+      child: fieldOption(width, idField, valueNamePolicy, descriptionPolicy),
+      onDismissed: (_) {
+        _deletePolicy(index);
+      },
+      background: Container(
+        color: Colors.red,
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        alignment: Alignment.centerRight,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Container fieldOption(double width, String keyField, String valueNamePolicy,
+      String descriptionPolicy) {
+    return Container(
+      width: width * 0.8,
+      child: Column(
+        children: [
+          TextFormField(
+            initialValue: valueNamePolicy,
+            onChanged: (value) {
+              _updateNamePolicy(keyField, value);
+            },
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              labelText: 'หัวข้อนโยบาย :',
+              labelStyle: TextStyle(color: Colors.grey[600]),
+              prefix: Icon(Icons.book, color: MyConstant.themeApp),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade200),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          TextFormField(
+            maxLines: 10,
+            initialValue: descriptionPolicy,
+            onChanged: (value) {
+              _updateDescriptionPolicy(keyField, value);
+            },
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              labelText: 'อธิบายนโยบาย :',
+              labelStyle: TextStyle(color: Colors.grey[600]),
+              prefix: Icon(Icons.policy_rounded, color: MyConstant.themeApp),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade200),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          Divider(
+            color: MyConstant.themeApp,
+            height: 20,
+            thickness: 3.0,
+          )
+        ],
+      ),
+    );
+  }
+
+  Container buildCreateOption(String titleOption, Function addFieldOption) {
     return Container(
       margin: const EdgeInsets.only(left: 35),
       child: Row(
         children: [
-          const Text(
-            'เพิ่มตัวเลือกเสริม',
+          Text(
+            titleOption,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
+              color: MyConstant.themeApp,
             ),
           ),
           Container(
             margin: EdgeInsets.only(left: 15),
             child: ElevatedButton(
               onPressed: () {
-                _addFieldOption(UniqueKey().toString());
+                addFieldOption(UniqueKey().toString());
               },
-              child: Icon(Icons.add),
+              child: Icon(
+                Icons.add,
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: MyConstant.themeApp,
+              ),
             ),
           )
         ],
@@ -368,9 +495,8 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefix: Icon(
                     Icons.person,
-                    color: focusFirstName
-                        ? Colors.tealAccent[700]
-                        : Colors.grey[500],
+                    color:
+                        focusFirstName ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -381,9 +507,10 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
-                  fontWeight:
-                      focusFirstName ? FontWeight.w700 : FontWeight.normal),
+                color: MyConstant.themeApp,
+                fontWeight:
+                    focusFirstName ? FontWeight.w700 : FontWeight.normal,
+              ),
             ),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
@@ -416,9 +543,8 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefix: Icon(
                     Icons.person,
-                    color: focusLastName
-                        ? Colors.tealAccent[700]
-                        : Colors.grey[500],
+                    color:
+                        focusLastName ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -429,7 +555,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight:
                       focusLastName ? FontWeight.w700 : FontWeight.normal),
             ),
@@ -448,6 +574,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          margin: EdgeInsets.only(top: 10),
           width: width * .35,
           child: DateTimePicker(
             initialTime: TimeOfDay.now(),
@@ -471,9 +598,13 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
             },
             // onSaved: (value) => startDate = value,
             style: TextStyle(
-                color: Colors.tealAccent[700],
-                fontWeight:
-                    focusStartTime ? FontWeight.w700 : FontWeight.normal),
+              color: MyConstant.themeApp,
+              fontWeight: focusStartTime ? FontWeight.w700 : FontWeight.normal,
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
         SizedBox(
@@ -484,6 +615,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
           width: 10,
         ),
         Container(
+          margin: EdgeInsets.only(top: 10),
           width: width * .35,
           child: DateTimePicker(
             initialTime: TimeOfDay.now(),
@@ -507,8 +639,13 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
             },
             // onSaved: (value) => startDate = value,
             style: TextStyle(
-                color: Colors.tealAccent[700],
-                fontWeight: focusEndTime ? FontWeight.w700 : FontWeight.normal),
+              color: MyConstant.themeApp,
+              fontWeight: focusEndTime ? FontWeight.w700 : FontWeight.normal,
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
       ],
@@ -520,38 +657,47 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          margin: EdgeInsets.only(top: 10),
           width: width * .35,
-          child: DropdownButton<String>(
-            value: startDate,
-            icon: Icon(Icons.calendar_today,
-                color:
-                    focusStartDate ? Colors.tealAccent[700] : Colors.grey[400]),
-            iconSize: 20,
-            underline: Container(
-              height: 2,
-              color: focusStartDate ? Colors.tealAccent[700] : Colors.grey[400],
-            ),
-            onChanged: (newValue) {
-              setState(() {
-                startDate = newValue;
-                if (newValue!.isEmpty) {
-                  focusStartDate = false;
-                } else {
-                  focusStartDate = true;
-                }
-              });
-            },
-            items: dateOnly.map<DropdownMenuItem<String>>((e) {
-              return DropdownMenuItem<String>(
-                value: e,
-                child: Text(e),
-              );
-            }).toList(),
-            hint: Text('วันที่เปิด'),
-            style: TextStyle(
-                color: Colors.tealAccent[700],
+          height: 60,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: startDate,
+              icon: Icon(Icons.calendar_today,
+                  color:
+                      focusStartDate ? MyConstant.themeApp : Colors.grey[400]),
+              iconSize: 20,
+              underline: Container(
+                height: 2,
+                color: focusStartDate ? MyConstant.themeApp : Colors.grey[400],
+              ),
+              onChanged: (newValue) {
+                setState(() {
+                  startDate = newValue;
+                  if (newValue!.isEmpty) {
+                    focusStartDate = false;
+                  } else {
+                    focusStartDate = true;
+                  }
+                });
+              },
+              items: dateOnly.map<DropdownMenuItem<String>>((e) {
+                return DropdownMenuItem<String>(
+                  value: e,
+                  child: Text(e),
+                );
+              }).toList(),
+              hint: Text('วันที่เปิด'),
+              style: TextStyle(
+                color: MyConstant.themeApp,
                 fontWeight:
-                    focusStartDate ? FontWeight.w700 : FontWeight.normal),
+                    focusStartDate ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
         SizedBox(
@@ -562,39 +708,48 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
           width: 10,
         ),
         Container(
+          margin: EdgeInsets.only(top: 10),
           width: width * .35,
-          child: DropdownButton<String>(
-            value: endDate,
-            hint: Text('วันที่ปิด'),
-            icon: Icon(
-              Icons.calendar_today,
-              color: focusEndDate ? Colors.tealAccent[700] : Colors.grey[400],
+          height: 60,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: endDate,
+              hint: Text('วันที่ปิด'),
+              icon: Icon(
+                Icons.calendar_today,
+                color: focusEndDate ? MyConstant.themeApp : Colors.grey[400],
+              ),
+              iconSize: 20,
+              underline: Container(
+                height: 2,
+                color: focusEndDate ? MyConstant.themeApp : Colors.grey[400],
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  endDate = newValue;
+                  if (newValue!.isEmpty) {
+                    focusEndDate = false;
+                  } else {
+                    focusEndDate = true;
+                  }
+                });
+              },
+              items: <String>['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.', 'อา.']
+                  .map<DropdownMenuItem<String>>((e) {
+                return DropdownMenuItem<String>(
+                  value: e,
+                  child: Text(e),
+                );
+              }).toList(),
+              style: TextStyle(
+                  color: MyConstant.themeApp,
+                  fontWeight:
+                      focusEndDate ? FontWeight.w700 : FontWeight.normal),
             ),
-            iconSize: 20,
-            underline: Container(
-              height: 2,
-              color: focusEndDate ? Colors.tealAccent[700] : Colors.grey[400],
-            ),
-            onChanged: (String? newValue) {
-              setState(() {
-                endDate = newValue;
-                if (newValue!.isEmpty) {
-                  focusEndDate = false;
-                } else {
-                  focusEndDate = true;
-                }
-              });
-            },
-            items: <String>['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.', 'อา.']
-                .map<DropdownMenuItem<String>>((e) {
-              return DropdownMenuItem<String>(
-                value: e,
-                child: Text(e),
-              );
-            }).toList(),
-            style: TextStyle(
-                color: Colors.tealAccent[700],
-                fontWeight: focusEndDate ? FontWeight.w700 : FontWeight.normal),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
       ],
@@ -604,55 +759,58 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
   Row buildPhoto(double width) {
     return Row(
       children: [
-        Container(
+        SizedBox(
           height: 15,
           width: width * .2,
           child: IconButton(
             onPressed: getImage,
-            icon: Icon(Icons.photo_library_outlined),
+            icon: Icon(
+              Icons.photo_library_rounded,
+              color: MyConstant.themeApp,
+              size: 40,
+            ),
           ),
         ),
         Container(
-            width: width * .6,
-            height: 150,
-            child: image_selected != null
-                ? Image.file(
-                    image_selected!,
-                    fit: BoxFit.cover,
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.image,
-                        color: Colors.white,
-                        size: 60,
-                      ),
-                      Text(
-                        'รูปภาพสำหรับหน้าปกร้าน',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    ],
-                  ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: image_selected != null ? 15 : 0,
-                      color: image_selected != null
-                          ? Colors.black54
-                          : Colors.deepPurple.shade100,
-                      offset: const Offset(0, 5))
-                ])),
-        Container(
+          width: width * .6,
+          height: 150,
+          child: image_selected != null
+              ? Image.file(
+                  image_selected!,
+                  fit: BoxFit.cover,
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.image,
+                      color: Color.fromRGBO(41, 187, 137, 0.7),
+                      size: 60,
+                    ),
+                  ],
+                ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: image_selected != null ? Colors.black54 : Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black54,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
           height: 15,
           width: width * .2,
           child: IconButton(
             onPressed: takePhoto,
-            icon: Icon(Icons.camera_alt_outlined),
+            icon: Icon(
+              Icons.camera_alt_rounded,
+              color: MyConstant.themeApp,
+              size: 40,
+            ),
           ),
         )
       ],
@@ -689,9 +847,8 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefix: Icon(
                     Icons.location_on,
-                    color: focusAddress
-                        ? Colors.tealAccent[700]
-                        : Colors.grey[500],
+                    color:
+                        focusAddress ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -702,9 +859,9 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
-                  fontWeight:
-                      focusAddress ? FontWeight.w700 : FontWeight.normal),
+                color: MyConstant.themeApp,
+                fontWeight: focusAddress ? FontWeight.w700 : FontWeight.normal,
+              ),
             ),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
@@ -745,8 +902,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefix: Icon(
                     Icons.phone_in_talk_sharp,
-                    color:
-                        focusMobile ? Colors.tealAccent[700] : Colors.grey[500],
+                    color: focusMobile ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -757,9 +913,63 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
-                  fontWeight:
-                      focusMobile ? FontWeight.w700 : FontWeight.normal),
+                color: MyConstant.themeApp,
+                fontWeight: focusMobile ? FontWeight.w700 : FontWeight.normal,
+              ),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusMobile ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row inputShippingPrice(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .8,
+            height: 60,
+            child: TextFormField(
+              controller: shippingPrice,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusMobile = false;
+                }
+                if (text.length >= 1) {
+                  focusMobile = true;
+                }
+              }),
+              validator: (value) {
+                if (value!.isEmpty) return 'กรุณากรอกค่าจัดส่ง';
+                return null;
+              },
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'ค่าจัดส่ง :',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefix: Icon(
+                    Icons.delivery_dining,
+                    color: focusMobile ? MyConstant.themeApp : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                color: MyConstant.themeApp,
+                fontWeight: focusMobile ? FontWeight.w700 : FontWeight.normal,
+              ),
             ),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
@@ -799,8 +1009,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefix: Icon(
                     Icons.store_outlined,
-                    color:
-                        focusName ? Colors.tealAccent[700] : Colors.grey[500],
+                    color: focusName ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -811,7 +1020,7 @@ class _BuyerCreateBrandState extends State<BuyerCreateBrand> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight: focusName ? FontWeight.w700 : FontWeight.normal),
             ),
             decoration: BoxDecoration(boxShadow: [

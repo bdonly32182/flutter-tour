@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 class CreatePackageTour extends StatefulWidget {
   CreatePackageTour({Key? key}) : super(key: key);
@@ -62,15 +63,18 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: MyConstant.backgroudApp,
       appBar: AppBar(
         title: Text('สร้างแพ็คเกจทัวร์'),
-        backgroundColor: Colors.tealAccent[700],
+        backgroundColor: MyConstant.themeApp,
       ),
       body: Form(
         child: ListView(
           children: [
             fieldPackageName(width),
-            fieldPrice(width),
+            fieldPriceAdult(width),
+            fieldPriceSenior(width),
+            fieldPriceYouth(width),
             fieldDrescription(width),
             fieldSearchGuide(width),
             fieldSearchLocation(width),
@@ -95,7 +99,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
           margin: EdgeInsets.only(top: 30),
           child: Text('รายละเอียดเพิ่มเติม',
               style: TextStyle(
-                color: Colors.tealAccent[700],
+                color: MyConstant.themeApp,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               )),
@@ -110,8 +114,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
               : Text(
                   'ชื่อไฟล์ : $selected_file_name',
                   style: TextStyle(
-                      color: Colors.tealAccent[700],
-                      fontWeight: FontWeight.w700),
+                      color: MyConstant.themeApp, fontWeight: FontWeight.w700),
                 ),
         ),
         Column(
@@ -120,7 +123,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
               child: Text(
                 'รายชื่อไกด์',
                 style: TextStyle(
-                    color: Colors.tealAccent[700], fontWeight: FontWeight.w700),
+                    color: MyConstant.themeApp, fontWeight: FontWeight.w700),
               ),
             ),
           ],
@@ -137,7 +140,11 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
           width: width * .2,
           child: IconButton(
             onPressed: getImage,
-            icon: Icon(Icons.photo_library_outlined),
+            icon: Icon(
+              Icons.photo_library_rounded,
+              color: MyConstant.themeApp,
+              size: 40,
+            ),
           ),
         ),
         Container(
@@ -153,15 +160,8 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     children: const [
                       Icon(
                         Icons.image,
-                        color: Colors.white,
+                        color: Color.fromRGBO(41, 187, 137, 0.7),
                         size: 60,
-                      ),
-                      Text(
-                        'รูปภาพสำหรับหน้าปกร้าน',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
                       )
                     ],
                   ),
@@ -169,18 +169,20 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: image_selected != null ? 15 : 0,
-                      color: image_selected != null
-                          ? Colors.black54
-                          : Colors.deepPurple.shade100,
-                      offset: const Offset(0, 5))
+                    color: Colors.white,
+                    offset: const Offset(0, 5),
+                  ),
                 ])),
         Container(
           height: 15,
           width: width * .2,
           child: IconButton(
             onPressed: takePhoto,
-            icon: Icon(Icons.camera_alt_outlined),
+            icon: Icon(
+              Icons.camera_alt_rounded,
+              color: MyConstant.themeApp,
+              size: 40,
+            ),
           ),
         )
       ],
@@ -213,7 +215,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                   suffixIcon: Icon(
                     Icons.search,
                     color: focusSearchResort
-                        ? Colors.tealAccent[700]
+                        ? MyConstant.themeApp
                         : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -225,7 +227,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight:
                       focusSearchResort ? FontWeight.w700 : FontWeight.normal),
             ),
@@ -265,7 +267,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                   suffixIcon: Icon(
                     Icons.search,
                     color: focusSearchLocation
-                        ? Colors.tealAccent[700]
+                        ? MyConstant.themeApp
                         : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -277,7 +279,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight: focusSearchLocation
                       ? FontWeight.w700
                       : FontWeight.normal),
@@ -318,7 +320,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                   suffixIcon: Icon(
                     Icons.search,
                     color: focusSearchGuide
-                        ? Colors.tealAccent[700]
+                        ? MyConstant.themeApp
                         : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -330,7 +332,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight:
                       focusSearchGuide ? FontWeight.w700 : FontWeight.normal),
             ),
@@ -374,7 +376,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                   prefix: Icon(
                     Icons.phone_in_talk_sharp,
                     color: focusDescription
-                        ? Colors.tealAccent[700]
+                        ? MyConstant.themeApp
                         : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -386,7 +388,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight:
                       focusDescription ? FontWeight.w700 : FontWeight.normal),
             ),
@@ -400,7 +402,105 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
     );
   }
 
-  Row fieldPrice(double width) {
+  Row fieldPriceAdult(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .8,
+            height: 60,
+            child: TextFormField(
+              controller: price,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusPrice = false;
+                }
+                if (text.length >= 1) {
+                  focusPrice = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'ราคาแพ็คเกจทัวร์ของผู้ใหญ่ :',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefixIcon: Icon(
+                    Icons.money,
+                    color: focusPrice ? MyConstant.themeApp : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                  color: MyConstant.themeApp,
+                  fontWeight: focusPrice ? FontWeight.w700 : FontWeight.normal),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusPrice ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row fieldPriceSenior(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 20),
+            width: width * .8,
+            height: 60,
+            child: TextFormField(
+              controller: price,
+              onChanged: (text) => setState(() {
+                if (text.isEmpty) {
+                  focusPrice = false;
+                }
+                if (text.length >= 1) {
+                  focusPrice = true;
+                }
+              }),
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  labelText: 'ราคาแพ็คเกจทัวร์ของผู้สูงอายุ :',
+                  labelStyle: TextStyle(color: Colors.grey[600]),
+                  prefixIcon: Icon(
+                    Icons.money,
+                    color: focusPrice ? MyConstant.themeApp : Colors.grey[500],
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade200),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              style: TextStyle(
+                  color: MyConstant.themeApp,
+                  fontWeight: focusPrice ? FontWeight.w700 : FontWeight.normal),
+            ),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: focusPrice ? Colors.black26 : Colors.white,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ])),
+      ],
+    );
+  }
+
+  Row fieldPriceYouth(double width) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -425,12 +525,11 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
               decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
-                  labelText: 'ราคาแพ็คเกจทัวร์ :',
+                  labelText: 'ราคาแพ็คเกจทัวร์ของเด็ก :',
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefixIcon: Icon(
                     Icons.money,
-                    color:
-                        focusPrice ? Colors.tealAccent[700] : Colors.grey[500],
+                    color: focusPrice ? MyConstant.themeApp : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -441,7 +540,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight: focusPrice ? FontWeight.w700 : FontWeight.normal),
             ),
             decoration: BoxDecoration(boxShadow: [
@@ -484,7 +583,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                   prefix: Icon(
                     Icons.menu_book,
                     color: focusPackageName
-                        ? Colors.tealAccent[700]
+                        ? MyConstant.themeApp
                         : Colors.grey[500],
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -496,7 +595,7 @@ class _CreatePackageTourState extends State<CreatePackageTour> {
                     borderRadius: BorderRadius.circular(10),
                   )),
               style: TextStyle(
-                  color: Colors.tealAccent[700],
+                  color: MyConstant.themeApp,
                   fontWeight:
                       focusPackageName ? FontWeight.w700 : FontWeight.normal),
             ),

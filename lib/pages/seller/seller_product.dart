@@ -5,7 +5,7 @@ import 'package:tour_app/pages/seller/order_resort.dart';
 import 'package:tour_app/pages/seller/order_resteraunt.dart';
 import 'package:tour_app/pages/seller/products_list.dart';
 
-import 'seller_create_brand.dart';
+import 'seller_create_shop.dart';
 import 'create_product_items.dart';
 
 class ProductSeller extends StatefulWidget {
@@ -43,11 +43,16 @@ class _ProductSellerState extends State<ProductSeller> {
         backgroundColor: Colors.tealAccent[700],
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => BuyerCreateBrand()));
-              },
-              icon: Icon(Icons.store))
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SellerCreateShop(),
+                ),
+              );
+            },
+            icon: Icon(Icons.store),
+          ),
         ],
       ),
       body: SafeArea(
@@ -108,7 +113,7 @@ class _ProductSellerState extends State<ProductSeller> {
         IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BuyerCreateBrand()));
+                MaterialPageRoute(builder: (context) => SellerCreateShop()));
           },
           icon: Icon(Icons.edit),
           color: Colors.red,

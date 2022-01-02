@@ -62,7 +62,7 @@ class _BookingTourState extends State<BookingTour> {
                 height: height * 0.338,
                 width: width * 1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
