@@ -20,6 +20,7 @@ class _FilterRoomState extends State<FilterRoom> {
       backgroundColor: MyConstant.backgroudApp,
       appBar: AppBar(
         backgroundColor: MyConstant.themeApp,
+        title: Text('ที่พักทั้งหมด'),
       ),
       body: SafeArea(
         child: Column(
@@ -40,13 +41,46 @@ class _FilterRoomState extends State<FilterRoom> {
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.person),
-                    Text('1'),
-                    Text('ห้อง'),
-                    Text('1'),
-                    Text('ผู้ใหญ่'),
-                    Text('1'),
-                    Text('เด็ก'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.person_outline),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: MyConstant.themeApp,
+                        ),
+                      ),
+                    ),
+                    const Text('ห้อง'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: MyConstant.themeApp,
+                        ),
+                      ),
+                    ),
+                    const Text('ผู้ใหญ่'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: MyConstant.themeApp,
+                        ),
+                      ),
+                    ),
+                    const Text('เด็ก'),
                   ],
                 ),
               ),

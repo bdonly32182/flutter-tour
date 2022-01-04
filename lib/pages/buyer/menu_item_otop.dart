@@ -16,16 +16,23 @@ class _MenuItemOtopState extends State<MenuItemOtop> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: MyConstant.backgroudApp,
-      appBar: AppBar(
-        backgroundColor: MyConstant.themeApp,
-      ),
-      body: SafeArea(
-        child: ListView(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: MyConstant.backgroudApp,
+        appBar: AppBar(
+          backgroundColor: MyConstant.themeApp,
+        ),
+        body: Column(
           children: [
-            buildDetail(width, height),
-            buildListviewProduct(width, height)
+            Expanded(
+              child: ListView(
+                children: [
+                  buildDetail(width, height),
+                  buildListviewProduct(width, height)
+                ],
+              ),
+            ),
+            buildButtonCheckout(height, width),
           ],
         ),
       ),
@@ -103,6 +110,46 @@ class _MenuItemOtopState extends State<MenuItemOtop> {
           );
         },
       ),
+    );
+  }
+
+  Container buildButtonCheckout(double height, double width) {
+    return Container(
+      width: double.maxFinite,
+      height: height * 0.08,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: width * 0.85,
+            height: 50,
+            child: ElevatedButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    '2',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    'สั่งสินค้า',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    '150 ฿',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                print('go to checkout');
+              },
+              style: ElevatedButton.styleFrom(primary: MyConstant.themeApp),
+            ),
+          ),
+        ],
+      ),
+      decoration: BoxDecoration(color: Colors.white),
     );
   }
 

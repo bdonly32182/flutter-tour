@@ -1,5 +1,7 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tour_app/pages/buyer/cart_restaurant.dart';
 import 'package:tour_app/pages/buyer/menu_item_restaurant.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
@@ -20,6 +22,23 @@ class _ShoppingRestaurantState extends State<ShoppingRestaurant> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyConstant.themeApp,
+        actions: [
+          Badge(
+            position: BadgePosition.topStart(),
+            badgeContent: Text('2'),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (builder) => CartRestaurant(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+          ),
+        ],
       ),
       backgroundColor: MyConstant.backgroudApp,
       body: ListView(

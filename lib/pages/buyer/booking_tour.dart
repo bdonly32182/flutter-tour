@@ -266,7 +266,7 @@ class _BookingTourState extends State<BookingTour> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Total cost',
+                'ยอดรวมทั้งหมด',
                 style: TextStyle(
                   color: Colors.grey[100],
                   fontSize: 16,
@@ -284,7 +284,7 @@ class _BookingTourState extends State<BookingTour> {
           ),
           ElevatedButton(
             child: Text(
-              'Check Out',
+              'ชำระเงิน',
               style: TextStyle(fontSize: 16, color: MyConstant.themeApp),
             ),
             onPressed: () {

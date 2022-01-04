@@ -14,8 +14,58 @@ class _AmountParticipantState extends State<AmountParticipant> {
   int totalYouth = 0;
   int totalBaby = 0;
 
+  _increaseAdult() {
+    setState(() {
+      totalAdult += 1;
+    });
+  }
+
+  _decreaseAdult() {
+    setState(() {
+      totalAdult -= 1;
+    });
+  }
+
+  _increaseRoom() {
+    setState(() {
+      totalRoom += 1;
+    });
+  }
+
+  _decreaseRoom() {
+    setState(() {
+      totalRoom -= 1;
+    });
+  }
+
+  _increaseYouth() {
+    setState(() {
+      totalYouth += 1;
+    });
+  }
+
+  _decreaseYouth() {
+    setState(() {
+      totalYouth -= 1;
+    });
+  }
+
+  _increaseBaby() {
+    setState(() {
+      totalBaby += 1;
+    });
+  }
+
+  _decreaseBaby() {
+    setState(() {
+      totalBaby -= 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: MyConstant.backgroudApp,
       appBar: AppBar(
@@ -27,173 +77,161 @@ class _AmountParticipantState extends State<AmountParticipant> {
           Expanded(
             child: ListView(
               children: [
-                buildTotalRoom(),
-                buildTotalAdult(),
-                buildTotalYouth(),
-                buildTotalBaby(),
+                buildTotalRoom(width),
+                const Divider(),
+                buildTotalCustom(
+                  width,
+                  totalAdult,
+                  'ผู้ใหญ่',
+                  _increaseAdult,
+                  _decreaseAdult,
+                ),
+                const Divider(),
+                buildTotalCustom(
+                  width,
+                  totalYouth,
+                  'เด็ก',
+                  _increaseYouth,
+                  _decreaseYouth,
+                ),
+                const Divider(),
+                buildTotalCustom(
+                  width,
+                  totalBaby,
+                  'ทารก',
+                  _increaseBaby,
+                  _decreaseBaby,
+                ),
+                const Divider(),
               ],
             ),
           ),
-          Container(
-            width: double.maxFinite,
-            margin: EdgeInsets.all(10),
-            height: 50,
-            child: ElevatedButton(
-              child: Text(
-                'ตกลง',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                print('go to back filter');
-              },
-              style: ElevatedButton.styleFrom(primary: MyConstant.themeApp),
-            ),
-          )
+          buildButtonOk()
         ],
       ),
     );
   }
 
-  Row buildTotalBaby() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(totalBaby.toString()),
-        Text('ทารก (ต่ำกว่า 3 ปี)'),
-        IconButton(
-          onPressed: totalBaby <= 0
-              ? null
-              : () {
-                  setState(() {
-                    totalBaby -= 1;
-                  });
-                },
-          icon: Icon(
-            Icons.remove_circle_outline_rounded,
-            color: totalBaby <= 0 ? Colors.grey[400] : Colors.grey[700],
-          ),
-          iconSize: 40,
-          disabledColor: Colors.grey[400],
+  Container buildButtonOk() {
+    return Container(
+      width: double.maxFinite,
+      margin: EdgeInsets.all(10),
+      height: 50,
+      child: ElevatedButton(
+        child: Text(
+          'ตกลง',
+          style: TextStyle(fontSize: 20),
         ),
-        IconButton(
-          onPressed: () {
-            setState(() {
-              totalBaby += 1;
-            });
-          },
-          icon: Icon(
-            Icons.add_circle_outline,
+        onPressed: () {
+          print('go to back filter');
+        },
+        style: ElevatedButton.styleFrom(primary: MyConstant.themeApp),
+      ),
+    );
+  }
+
+  Row buildTotalCustom(double width, int totalEachType, String typeName,
+      Function increaseTotal, Function decreaseTotal) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SizedBox(
+          width: width * 0.1,
+          child: Text(
+            totalEachType.toString(),
+            style: TextStyle(fontSize: 24),
           ),
-          iconSize: 40,
-        )
+        ),
+        SizedBox(
+          width: width * 0.3,
+          child: Text(
+            typeName,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        SizedBox(
+          width: width * 0.3,
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: totalEachType <= 0 ? null : () => decreaseTotal(),
+                icon: Icon(
+                  Icons.remove_circle_outline_rounded,
+                  color: totalEachType <= 0
+                      ? Colors.grey[400]
+                      : MyConstant.themeApp,
+                ),
+                iconSize: 40,
+                disabledColor: Colors.grey[400],
+              ),
+              IconButton(
+                onPressed: () => increaseTotal(),
+                icon: Icon(
+                  Icons.add_circle_outline,
+                  color: MyConstant.themeApp,
+                ),
+                iconSize: 40,
+              )
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Row buildTotalYouth() {
+  Row buildTotalRoom(double width) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(totalYouth.toString()),
-        Text('เด็ก'),
-        IconButton(
-          onPressed: totalYouth <= 0
-              ? null
-              : () {
+        SizedBox(
+          width: width * 0.1,
+          child: Text(
+            totalRoom.toString(),
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+        SizedBox(
+          width: width * 0.3,
+          child: Text(
+            'ห้อง',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+        SizedBox(
+          width: width * 0.3,
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: totalRoom <= 1
+                    ? null
+                    : () {
+                        setState(() {
+                          totalRoom -= 1;
+                        });
+                      },
+                icon: Icon(
+                  Icons.remove_circle_outline_rounded,
+                  color:
+                      totalRoom <= 1 ? Colors.grey[400] : MyConstant.themeApp,
+                ),
+                iconSize: 40,
+                disabledColor: Colors.grey[400],
+              ),
+              IconButton(
+                onPressed: () {
                   setState(() {
-                    totalYouth -= 1;
+                    totalRoom += 1;
                   });
                 },
-          icon: Icon(
-            Icons.remove_circle_outline_rounded,
-            color: totalYouth <= 0 ? Colors.grey[400] : Colors.grey[700],
+                icon: Icon(
+                  Icons.add_circle_outline,
+                  color: MyConstant.themeApp,
+                ),
+                iconSize: 40,
+              )
+            ],
           ),
-          iconSize: 40,
-          disabledColor: Colors.grey[400],
         ),
-        IconButton(
-          onPressed: () {
-            setState(() {
-              totalYouth += 1;
-            });
-          },
-          icon: Icon(
-            Icons.add_circle_outline,
-          ),
-          iconSize: 40,
-        )
-      ],
-    );
-  }
-
-  Row buildTotalAdult() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(totalAdult.toString()),
-        Text('ผู้ใหญ่'),
-        IconButton(
-          onPressed: totalAdult <= 0
-              ? null
-              : () {
-                  setState(() {
-                    totalAdult -= 1;
-                  });
-                },
-          icon: Icon(
-            Icons.remove_circle_outline_rounded,
-            color: totalAdult <= 0 ? Colors.grey[400] : Colors.grey[700],
-          ),
-          iconSize: 40,
-          disabledColor: Colors.grey[400],
-        ),
-        IconButton(
-          onPressed: () {
-            setState(() {
-              totalAdult += 1;
-            });
-          },
-          icon: Icon(
-            Icons.add_circle_outline,
-          ),
-          iconSize: 40,
-        )
-      ],
-    );
-  }
-
-  Row buildTotalRoom() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(totalRoom.toString()),
-        Text('ห้อง'),
-        IconButton(
-          onPressed: totalRoom <= 1
-              ? null
-              : () {
-                  setState(() {
-                    totalRoom -= 1;
-                  });
-                },
-          icon: Icon(
-            Icons.remove_circle_outline_rounded,
-            color: totalRoom <= 1 ? Colors.grey[400] : Colors.grey[700],
-          ),
-          iconSize: 40,
-          disabledColor: Colors.grey[400],
-        ),
-        IconButton(
-          onPressed: () {
-            setState(() {
-              totalRoom += 1;
-            });
-          },
-          icon: Icon(
-            Icons.add_circle_outline,
-          ),
-          iconSize: 40,
-        )
       ],
     );
   }
