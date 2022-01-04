@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/buyer/filter_room.dart';
+import 'package:tour_app/pages/buyer/home_otop.dart';
+import 'package:tour_app/pages/buyer/home_resort.dart';
+import 'package:tour_app/pages/buyer/home_restaurant.dart';
+import 'package:tour_app/pages/buyer/home_tour.dart';
 import 'package:tour_app/pages/package_tour.dart';
-import 'package:tour_app/pages/buyer/shopping_otop.dart';
-import 'package:tour_app/pages/buyer/shopping_restaurant.dart';
 import 'package:tour_app/pages/tourism_location.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
@@ -25,7 +26,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              ShoppingRestaurant(),
+              HomeRestaurant(),
               MyConstant.shopImage,
               'ร้านอาหาร',
               Colors.orange.shade300,
@@ -33,7 +34,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              ShoppingOtop(),
+              HomeOtop(),
               MyConstant.shopImage,
               'ผลิตภัณฑ์ชุมชน',
               Colors.orange.shade300,
@@ -41,7 +42,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              FilterRoom(),
+              HomeResort(),
               MyConstant.homestayImage,
               'บ้านพัก',
               Colors.green.shade300,
@@ -57,7 +58,7 @@ class _HomeBuyerState extends State<HomeBuyer> {
             menuCard(
               context,
               width,
-              PackageTour(isAdmin: false),
+              HomeTour(),
               MyConstant.packageTourImage,
               'แพ็คเกจท่องเที่ยว',
               Colors.blue.shade300,

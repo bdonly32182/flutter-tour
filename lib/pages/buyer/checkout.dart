@@ -66,7 +66,7 @@ class _CheckoutState extends State<Checkout> {
                             ),
                             buildText(
                               width,
-                              'เจ้าของร้าน:',
+                              'ชื่อเจ้าของบัญชี:',
                               'นาย จักรพันธ์ เพียเพ็งต้น',
                             ),
                             buildText(

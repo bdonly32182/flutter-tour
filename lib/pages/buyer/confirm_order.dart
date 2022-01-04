@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/checkout.dart';
+import 'package:tour_app/pages/buyer/shipping_address.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -185,7 +186,12 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
     return Card(
       child: InkWell(
         onTap: () {
-          print('go to change address');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (builder) => ShippingAddress(),
+            ),
+          );
         },
         child: Column(
           children: [

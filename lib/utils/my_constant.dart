@@ -25,6 +25,7 @@ class MyConstant {
   static String guideImage = 'images/guide.jpg';
   static String partnerImage = 'images/partner.png';
   static String homestayImage = 'images/homestay.jpg';
+  static String currentLocation = 'images/current_location.png';
 
   // color
   static Color backgroudApp =
