@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/shopping_otop.dart';
 import 'package:tour_app/pages/buyer/tracking_otop.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 
 class HomeOtop extends StatefulWidget {
@@ -41,7 +42,7 @@ class _HomeOtopState extends State<HomeOtop> {
         ],
         onTap: _onItemTapped,
         currentIndex: _selected,
-        selectedItemColor: Colors.tealAccent[700],
+        selectedItemColor: MyConstant.themeApp,
         unselectedItemColor: Colors.grey,
       ),
     );

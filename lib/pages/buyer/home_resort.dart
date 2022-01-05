@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/filter_room.dart';
 import 'package:tour_app/pages/buyer/tracking_booking_resort.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 class HomeResort extends StatefulWidget {
   HomeResort({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _HomeResortState extends State<HomeResort> {
         ],
         onTap: _onItemTapped,
         currentIndex: _selected,
-        selectedItemColor: Colors.tealAccent[700],
+        selectedItemColor: MyConstant.themeApp,
         unselectedItemColor: Colors.grey,
       ),
     );

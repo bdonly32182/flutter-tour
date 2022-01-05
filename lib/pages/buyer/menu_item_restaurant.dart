@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/add_to_cart.dart';
 import 'package:tour_app/pages/buyer/checkout.dart';
+import 'package:tour_app/pages/seller/detail_store.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -226,7 +227,12 @@ class _MenuItemRestaurantState extends State<MenuItemRestaurant> {
             ),
           ),
           onPressed: () {
-            print('go to detail');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (builder) => DetailStore(),
+              ),
+            );
           },
         )
       ],

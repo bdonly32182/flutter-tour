@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/adminpage/create_package_tour.dart';
+import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/card_package_tour.dart';
 
 class PackageTour extends StatefulWidget {
@@ -69,7 +70,7 @@ class _PackageTourState extends State<PackageTour> {
     double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.tealAccent[700],
+        backgroundColor: MyConstant.themeApp,
         actions: widget.isAdmin
             ? <Widget>[
                 IconButton(
@@ -131,7 +132,7 @@ class _PackageTourState extends State<PackageTour> {
                   labelStyle: TextStyle(color: Colors.grey[600]),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: Colors.tealAccent[700],
+                    color: MyConstant.themeApp,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey.shade200),
@@ -157,7 +158,7 @@ class _PackageTourState extends State<PackageTour> {
               onPressed: () {
                 print('click search');
               },
-              style: ElevatedButton.styleFrom(primary: Colors.tealAccent[700]),
+              style: ElevatedButton.styleFrom(primary: MyConstant.themeApp),
             ),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(

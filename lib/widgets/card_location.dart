@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tour_app/pages/detail_location.dart';
 
 class CardLocation extends StatelessWidget {
   final String urlPicture;
@@ -43,6 +44,12 @@ class CardLocation extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 print('click ');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (builder) => DetailLocation(),
+                  ),
+                );
               },
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,

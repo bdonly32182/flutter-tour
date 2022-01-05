@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/home_buyer.dart';
 import 'package:tour_app/pages/notification.dart';
 import 'package:tour_app/pages/profile.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 class BuyerService extends StatefulWidget {
   BuyerService({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _BuyerServiceState extends State<BuyerService> {
         ],
         onTap: _onItemTapped,
         currentIndex: _selected,
-        selectedItemColor: Colors.tealAccent[700],
+        selectedItemColor: MyConstant.themeApp,
         unselectedItemColor: Colors.grey,
       ),
     );

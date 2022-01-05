@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tour_app/pages/buyer/shopping_restaurant.dart';
 import 'package:tour_app/pages/buyer/tracking_restaurant.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 class HomeRestaurant extends StatefulWidget {
   HomeRestaurant({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
         ],
         onTap: _onItemTapped,
         currentIndex: _selected,
-        selectedItemColor: Colors.tealAccent[700],
+        selectedItemColor: MyConstant.themeApp,
         unselectedItemColor: Colors.grey,
       ),
     );
