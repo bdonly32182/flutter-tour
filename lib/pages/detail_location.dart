@@ -1,7 +1,8 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
+
+import 'buyer/review_list.dart';
 
 class DetailLocation extends StatefulWidget {
   DetailLocation({Key? key}) : super(key: key);
@@ -78,7 +79,12 @@ class _DetailLocationState extends State<DetailLocation> {
   InkWell buildComment(double width) {
     return InkWell(
       onTap: () {
-        print('go to read review');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (builder) => ReviewList(),
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.all(10.0),

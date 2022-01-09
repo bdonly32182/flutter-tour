@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tour_app/pages/buyer/write_review.dart';
 import 'package:tour_app/utils/my_constant.dart';
 import 'package:tour_app/widgets/show_image.dart';
 
@@ -65,7 +66,12 @@ class _TrackingBookingResortState extends State<TrackingBookingResort> {
                                 style: TextStyle(color: MyConstant.themeApp),
                               ),
                               onPressed: () {
-                                print('go to commect and give star');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (builder) => WriteReview(),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
