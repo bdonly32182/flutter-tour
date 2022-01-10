@@ -105,6 +105,7 @@ class _PackageTourState extends State<PackageTour> {
                         highlight_location: package_tours[index]
                             ['highlight_location'],
                         price: package_tours[index]['price'],
+                        isBuyer: true,
                       ),
                     );
                   }),

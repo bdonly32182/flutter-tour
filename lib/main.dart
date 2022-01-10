@@ -39,7 +39,7 @@ Future<Null> main() async {
   String? role = referrence.getString('role');
   print('###role : $role');
   if (role?.isEmpty ?? true) {
-    initialRoute = MyConstant.routeBuyerService;
+    initialRoute = MyConstant.routeGuideService;
     runApp(MyApp());
   } else {
     switch (role) {

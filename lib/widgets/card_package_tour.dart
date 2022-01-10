@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/buyer/booking_tour.dart';
 import 'package:tour_app/pages/buyer/shopping_tour.dart';
+import 'package:tour_app/pages/guide/home_guide_package_tour.dart';
 
 class CardPackageTour extends StatelessWidget {
   final String url_image;
   final String package_name;
   final String highlight_location;
   final double price;
-  const CardPackageTour(
-      {Key? key,
-      required this.url_image,
-      required this.package_name,
-      required this.highlight_location,
-      required this.price})
-      : super(key: key);
+  final bool isBuyer;
+  const CardPackageTour({
+    Key? key,
+    required this.url_image,
+    required this.package_name,
+    required this.highlight_location,
+    required this.price,
+    required this.isBuyer,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,21 @@ class CardPackageTour extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (builder) => ShoppingTour(),
-              ),
-            );
+            if (isBuyer) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (builder) => ShoppingTour(),
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (builder) => HomeGuidePackageTour(),
+                ),
+              );
+            }
           },
           child: Container(
             child: Column(

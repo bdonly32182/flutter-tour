@@ -3,6 +3,7 @@ import 'package:tour_app/pages/adminpage/home_admin.dart';
 import 'package:tour_app/pages/adminpage/order_package_tour.dart';
 import 'package:tour_app/pages/notification.dart';
 import 'package:tour_app/pages/profile.dart';
+import 'package:tour_app/utils/my_constant.dart';
 
 class AdminService extends StatefulWidget {
   AdminService({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _AdminServiceState extends State<AdminService> {
         ],
         onTap: _onItemTapped,
         currentIndex: _selected,
-        selectedItemColor: Colors.tealAccent[700],
+        selectedItemColor: MyConstant.themeApp,
         unselectedItemColor: Colors.grey,
       ),
     );

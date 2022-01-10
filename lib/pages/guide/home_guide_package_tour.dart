@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:tour_app/pages/guide/list_join_package_tour.dart';
+import 'package:tour_app/pages/guide/detail_package_tour.dart';
+import 'package:tour_app/pages/guide/list_tourism.dart';
 import 'package:tour_app/utils/my_constant.dart';
 
-import '../notification.dart';
-import '../profile.dart';
-class GuideService extends StatefulWidget {
-  GuideService({Key? key}) : super(key: key);
+class HomeGuidePackageTour extends StatefulWidget {
+  HomeGuidePackageTour({Key? key}) : super(key: key);
 
   @override
-  _GuideServiceState createState() => _GuideServiceState();
+  _HomeGuidePackageTourState createState() => _HomeGuidePackageTourState();
 }
 
-class _GuideServiceState extends State<GuideService> {
+class _HomeGuidePackageTourState extends State<HomeGuidePackageTour> {
   int _selected = 0;
   List<Widget> _widget_bottom_list = [
-    ListJoinPackageTour(),
-    Notifications(),
-    Profile()
+    DetailPackageTour(),
+    ListTourism(),
   ];
   void _onItemTapped(int index) {
     setState(() {
       _selected = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,16 +32,11 @@ class _GuideServiceState extends State<GuideService> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notification',
+            label: 'Package Tour',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.group),
+            label: 'Tourism',
           ),
         ],
         onTap: _onItemTapped,

@@ -62,12 +62,14 @@ class _ProductsListState extends State<ProductsList> {
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateProductItems(
-                                      productId: 'productId',
-                                      productName: 'productName',
-                                      typeProduct: 'typeProduct')));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreateProductItems(
+                                  productId: 'productId',
+                                  productName: 'productName',
+                                  typeProduct: 'typeProduct'),
+                            ),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
